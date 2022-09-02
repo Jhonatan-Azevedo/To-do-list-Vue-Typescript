@@ -10,29 +10,12 @@
           type="text"
           class="input"
           placeholder="Qual tarefa você deseja iniciar ?"
+          v-model="descricao"
         />
       </div>
 
       <div class="column">
-        <div
-          class="is-flex is-align-items-center is-justify-content-space-between"
-        >
-          <section>
-            <strong>{{ tempoDecorrido }}</strong>
-          </section>
-          <button class="button" @click="iniciarContagem()">
-            <span class="icon">
-              <i class="fa fa-play"></i>
-            </span>
-            <span>play</span>
-          </button>
-          <button class="button" @click="finalizarContagem()">
-            <span class="icon">
-              <i class="fa fa-stop"></i>
-            </span>
-            <span>stop</span>
-          </button>
-        </div>
+        <Temporizador @temporizadorFinalizado="finalizarTarefa($event)" />
       </div>
     </div>
   </section>
@@ -40,32 +23,28 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import Cronometro from "./Cronometro.vue";
+import Temporizador from "./Temporizador.vue";
 
 export default defineComponent({
   name: "Formulario",
 
+  components: {
+    Temporizador,
+  },
+
   data() {
     return {
-      tempoEmSegundos: 0,
-      cronometro: 0,
+      descricao: "",
     };
   },
 
-  computed: {
-    tempoDecorrido(): string {
-      return new Date(this.tempoEmSegundos * 1000).toISOString().substr(11, 8);
-    },
-  },
-
   methods: {
-    iniciarContagem() {
-      this.cronometro = setInterval(() => {
-        this.tempoEmSegundos++;
-      }, 1000);
-    },
+    finalizarTarefa(tempoDecorrido: number): void {
+      console.log(tempoDecorrido);
+      console.log(this.descricao);
 
-    finalizarContagem() {
-      clearInterval(this.cronometro);
+      this.descricao = "";
     },
   },
 });
