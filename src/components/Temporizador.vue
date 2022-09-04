@@ -3,10 +3,11 @@
     class="is-flex is-align-items-center is-justify-content-space-between"
   >
     <Cronometro :tempoEmSegundos="tempoEmSegundos" />
+
     <button
       class="button"
       @click="iniciarContagem()"
-      :disabled="cronometroRodando"
+      :disabled="preencherDescricao || cronometroRodando"
     >
       <span class="icon">
         <i class="fa fa-play"></i>
@@ -15,13 +16,23 @@
     </button>
     <button
       class="button"
+      @click="pausarContagem()"
+      :disabled="preencherDescricao || !cronometroRodando"
+    >
+      <span class="icon">
+        <i class="fa fa-pause"></i>
+      </span>
+      <span>pausar</span>
+    </button>
+    <button
+      class="button"
       @click="finalizarContagem()"
-      :disabled="!cronometroRodando"
+      :disabled="preencherDescricao"
     >
       <span class="icon">
         <i class="fa fa-stop"></i>
       </span>
-      <span>stop</span>
+      <span>finalizar</span>
     </button>
   </section>
 </template>
@@ -34,6 +45,13 @@ export default defineComponent({
   name: "Temporizador",
 
   emits: ["temporizadorFinalizado"],
+
+  props: {
+    preencherDescricao: {
+      type: Boolean,
+      default: true,
+    },
+  },
 
   components: {
     Cronometro,
@@ -53,6 +71,11 @@ export default defineComponent({
       this.cronometro = setInterval(() => {
         this.tempoEmSegundos++;
       }, 1000);
+    },
+
+    pausarContagem() {
+      this.cronometroRodando = false;
+      clearInterval(this.cronometro);
     },
 
     finalizarContagem() {

@@ -1,8 +1,8 @@
 <template>
-  <section class="box">
+  <section class="box formulario">
     <div class="columns">
       <div
-        class="column is-8"
+        class="column is-6"
         role="form"
         aria-label="Formulário para criação de uma nova tarefa"
       >
@@ -15,7 +15,10 @@
       </div>
 
       <div class="column">
-        <Temporizador @temporizadorFinalizado="finalizarTarefa($event)" />
+        <Temporizador
+          @temporizadorFinalizado="finalizarTarefa($event)"
+          :preencherDescricao="descricaoVazia"
+        />
       </div>
     </div>
   </section>
@@ -33,16 +36,33 @@ export default defineComponent({
     Temporizador,
   },
 
+  emits: ["aoSalvarTarefa"],
+
+  watch: {
+    descricao(newValue) {
+      if (newValue) {
+        this.descricaoVazia = false;
+        return;
+      }
+
+      this.descricaoVazia = true;
+      return;
+    },
+  },
+
   data() {
     return {
       descricao: "",
+      descricaoVazia: true,
     };
   },
 
   methods: {
     finalizarTarefa(tempoDecorrido: number): void {
-      console.log(tempoDecorrido);
-      console.log(this.descricao);
+      this.$emit("aoSalvarTarefa", {
+        duracaoEmSegundos: tempoDecorrido,
+        descricao: this.descricao,
+      });
 
       this.descricao = "";
     },
@@ -51,4 +71,8 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.formulario {
+  color: var(--texto-primairo);
+  background-color: var(--bg-form);
+}
 </style>
