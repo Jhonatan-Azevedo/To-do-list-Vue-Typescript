@@ -26,9 +26,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import Cronometro from "./Cronometro.vue";
 import Temporizador from "./Temporizador.vue";
-
 export default defineComponent({
   name: "Formulario",
 
@@ -36,7 +34,7 @@ export default defineComponent({
     Temporizador,
   },
 
-  emits: ["aoSalvarTarefa"],
+  emits: ["novaTarefa"],
 
   watch: {
     descricao(newValue) {
@@ -59,12 +57,21 @@ export default defineComponent({
 
   methods: {
     finalizarTarefa(tempoDecorrido: number): void {
-      this.$emit("aoSalvarTarefa", {
+      const tarefa = {
         duracaoEmSegundos: tempoDecorrido,
         descricao: this.descricao,
-      });
+      };
+
+      this.salvarDados(tarefa);
+      this.$emit("novaTarefa", true);
 
       this.descricao = "";
+    },
+
+    salvarDados(tarefa: object) {
+      const registros = JSON.parse(localStorage.getItem("@registros") || "{}");
+      registros.tarefas.push(tarefa);
+      localStorage.setItem("@registros", JSON.stringify(registros));
     },
   },
 });

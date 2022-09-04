@@ -7,7 +7,7 @@
       <BarraLateral @aoTemaAlterado="trocarTema($event)" />
     </div>
     <div class="column is three-quarter conteudo">
-      <Formulario @aoSalvarTarefa="salvarTerefa($event)" />
+      <Formulario @novaTarefa="salvarTerefa($event)" />
       <div class="lista">
         <Tarefa
           v-for="(tarefa, index) in tarefas"
@@ -52,9 +52,27 @@ export default defineComponent({
     },
   },
 
+  mounted() {
+    const registros = JSON.parse(localStorage.getItem("@registros") || "{}");
+    if (registros == {}) {
+      const novoRegistros = {
+        user: "",
+        tarefas: [],
+        modoEscuro: false,
+      };
+
+      localStorage.setItem("@registros", JSON.stringify(novoRegistros));
+    } else if (registros.tarefas) {
+      this.tarefas = registros.tarefas;
+      console.log(this.tarefas);
+    }
+  },
+
   methods: {
-    salvarTerefa(tarefa: ITarefa) {
-      this.tarefas.push(tarefa);
+    salvarTerefa(novaTarefa: boolean) {
+      console.log("Nova tarefa");
+      const registos = JSON.parse(localStorage.getItem("@registros") || "{}");
+      if (novaTarefa && registos.tarefas) this.tarefas = registos.tarefas;
     },
 
     trocarTema(modoEscuroAtivo: boolean) {
