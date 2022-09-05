@@ -25,8 +25,10 @@
 </template>
 
 <script lang="ts">
+import Service from "@/service";
 import { defineComponent } from "vue";
 import Temporizador from "./Temporizador.vue";
+
 export default defineComponent({
   name: "Formulario",
 
@@ -62,16 +64,10 @@ export default defineComponent({
         descricao: this.descricao,
       };
 
-      this.salvarDados(tarefa);
+      Service.salvarTerefa(tarefa);
       this.$emit("novaTarefa", true);
 
       this.descricao = "";
-    },
-
-    salvarDados(tarefa: object) {
-      const registros = JSON.parse(localStorage.getItem("@registros") || "{}");
-      registros.tarefas.push(tarefa);
-      localStorage.setItem("@registros", JSON.stringify(registros));
     },
   },
 });

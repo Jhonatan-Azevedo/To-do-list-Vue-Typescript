@@ -19,7 +19,7 @@
 
       <span
         >Desenvolvido por
-        <a href="#" target="blank"
+        <a href="https://br.linkedin.com/in/jazevedodev" target="blank"
           >Jhonatan Azevedo <i class="fa-brands fa-linkedin"></i
         ></a>
       </span>
@@ -73,7 +73,7 @@ header {
   width: 100%;
   height: 100vh;
   text-align: center;
-  padding: 5rem;
+  padding: 1rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

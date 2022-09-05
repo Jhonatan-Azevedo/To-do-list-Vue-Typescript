@@ -1,6 +1,6 @@
 <template>
   <Box>
-    <div class="columns">
+    <div class="columns tarefa">
       <div class="column is-7">{{ tarefa.descricao }}</div>
       <div class="column">
         <Cronometro :tempoEmSegundos="tarefa.duracaoEmSegundos" />
@@ -27,4 +27,10 @@ export default defineComponent({
   },
 });
 </script>
+
+<style>
+.tarefa {
+  color: var(--texto-primario);
+}
+</style>
 

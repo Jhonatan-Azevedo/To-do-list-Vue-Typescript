@@ -7,7 +7,13 @@
       <BarraLateral @aoTemaAlterado="trocarTema($event)" />
     </div>
     <div class="column is three-quarter conteudo">
-      <Formulario @novaTarefa="salvarTerefa($event)" />
+      <Formulario @novaTarefa="capturarTerefas($event)" />
+      <CampoUsuario
+        :novaTarefa="tarefas"
+        :mostarUsuario="!mostrarModal"
+        @excluirTarefa="capturarTerefas($event)"
+        @aoSair="mostrarModal = $event"
+      />
       <div class="lista">
         <Tarefa
           v-for="(tarefa, index) in tarefas"
@@ -15,8 +21,11 @@
           :tarefa="tarefa"
         />
         <Box v-if="ListaTarefasEstaVazia">
-          <p class="has-text-centered">Você não esta muito produtivo hoje :(</p>
+          <p class="has-text-centered sem-tarefas">
+            Você não esta muito produtivo hoje :(
+          </p>
         </Box>
+        <Modal v-if="mostrarModal" @aoSalvarNome="mostrarModal = $event" />
       </div>
     </div>
   </main>
@@ -26,7 +35,9 @@
 import { defineComponent } from "vue";
 import BarraLateral from "./components/BarraLateral.vue";
 import Box from "./components/Box.vue";
+import CampoUsuario from "./components/CampoUsuario.vue";
 import Formulario from "./components/Formulario.vue";
+import Modal from "./components/Modal.vue";
 import Tarefa from "./components/Tarefa.vue";
 import ITarefa from "./interfaces/ITarefa";
 
@@ -35,7 +46,9 @@ export default defineComponent({
   components: {
     BarraLateral,
     Box,
+    CampoUsuario,
     Formulario,
+    Modal,
     Tarefa,
   },
 
@@ -43,6 +56,7 @@ export default defineComponent({
     return {
       tarefas: [] as ITarefa[],
       modoEscuroAtivo: false,
+      mostrarModal: false,
     };
   },
 
@@ -54,25 +68,37 @@ export default defineComponent({
 
   mounted() {
     this.trocarTema();
-    const registros = JSON.parse(localStorage.getItem("@registros") || "{}");
-    console.log(registros);
-    if (registros == {}) {
-      const novoRegistros = {
-        user: "",
-        tarefas: [],
-        modoEscuro: false,
-      };
-
-      localStorage.setItem("@registros", JSON.stringify(novoRegistros));
-    } else if (registros.tarefas) {
-      this.tarefas = registros.tarefas;
-      console.log(this.tarefas);
-    }
+    this.inicioComponente();
+    this.ocultarModal();
   },
 
   methods: {
-    salvarTerefa(novaTarefa: boolean) {
-      console.log("Nova tarefa");
+    inicioComponente() {
+      const registros = JSON.parse(localStorage.getItem("@registros") || "{}");
+      if (registros.user == undefined) {
+        console.log("novo registro");
+        const novoRegistros = {
+          user: "",
+          tarefas: [],
+          modoEscuro: false,
+        };
+
+        localStorage.setItem("@registros", JSON.stringify(novoRegistros));
+      } else if (registros.tarefas) {
+        this.tarefas = registros.tarefas;
+      }
+    },
+
+    ocultarModal() {
+      const registros = JSON.parse(localStorage.getItem("@registros") || "{}");
+      if (registros.user != undefined && registros.user != "") {
+        return (this.mostrarModal = false);
+      }
+
+      return (this.mostrarModal = true);
+    },
+
+    capturarTerefas(novaTarefa: boolean) {
       const registos = JSON.parse(localStorage.getItem("@registros") || "{}");
       if (novaTarefa && registos.tarefas) this.tarefas = registos.tarefas;
     },
@@ -85,24 +111,4 @@ export default defineComponent({
 });
 </script>
 
-<style>
-.lista {
-  padding: 1.25rem;
-}
-
-main {
-  --bg-primario: #fff;
-  --bg-form: rgb(230, 230, 230);
-  --texto-primario: #222;
-}
-
-main.modo-escuro {
-  --bg-primario: #1b1c20;
-  --bg-form: rgb(56, 56, 56);
-  --texto-primario: #ddd;
-}
-
-.conteudo {
-  background-color: var(--bg-primario);
-}
-</style>
+<style src="./AppStyle.css" />

@@ -1,0 +1,27 @@
+.lista {
+  padding: 1.25rem;
+}
+
+.lista .sem-tarefas {
+  color: var(--texto-primario);
+}
+
+main {
+  --bg-primario: #fff;
+  --bg-form: rgb(230, 230, 230);
+  --texto-primario: #222;
+  --bg-box: #faf0ca;
+  --texto-secundario: #5a9faa;
+}
+
+main.modo-escuro {
+  --bg-primario: #1b1c20;
+  --bg-form: rgb(56, 56, 56);
+  --texto-primario: #ddd;
+  --bg-box: #1c545c;
+  --texto-secundario: #faf0ca;
+}
+
+.conteudo {
+  background-color: var(--bg-primario);
+}
