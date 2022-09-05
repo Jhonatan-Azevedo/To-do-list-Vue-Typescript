@@ -23,7 +23,8 @@ const routes: RouteRecordRaw[] = [
     },
     {
         path: '/projetos/:id',
-        component: FormularioProjeto
+        component: FormularioProjeto,
+        props: true
     },
 ]
 

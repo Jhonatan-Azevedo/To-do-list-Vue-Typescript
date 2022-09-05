@@ -27,6 +27,13 @@ export const store = createStore<Estado>({
             localStorage.setItem("@registros", JSON.stringify(registros))
             
             // state.projetos.push(projeto)
+        },
+        'ALTERAR_PROJETO'(state, projeto: IProjeto) {
+            const index = registros.projetos.findIndex((item: IProjeto) => item.id == projeto.id)
+            registros.projetos[index] = projeto
+            localStorage.setItem("@registros", JSON.stringify(registros))
+
+            // state.projetos[index] = projeto
         }
     }
 })
