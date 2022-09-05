@@ -2,36 +2,15 @@
   <section class="projetos">
     <div class="header">
       <h1 class="title">Projetos</h1>
-      <router-link to="/projetos/novo" class="button"
+      <router-link
+        to="/projetos/novo"
+        class="button"
+        v-if="validarBtnNovoProjeto"
         ><span class="icon is-small"><i class="fas fa-plus"></i> </span>
         <span>Novo Projeto</span>
       </router-link>
     </div>
-
-    <table class="table is-fullwidth">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nome</th>
-          <th>Ações</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="projeto in projetos" :key="projeto.id">
-          <td>{{ projeto.id }}</td>
-          <td>{{ projeto.nome }}</td>
-          <td>
-            <router-link
-              :to="`/projetos/${projeto.id}`"
-              class="button is-warning"
-              ><span class="icon is-small"
-                ><i class="fas fa-pencil-alt"></i>
-              </span>
-            </router-link>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <router-view></router-view>
   </section>
 </template>
 
@@ -41,6 +20,16 @@ import { useStore } from "@/store";
 
 export default defineComponent({
   name: "Projetos",
+
+  computed: {
+    validarBtnNovoProjeto() {
+      if (this.$route.fullPath.includes("novo") || this.$route.params.id) {
+        return false;
+      }
+
+      return true;
+    },
+  },
 
   setup() {
     const store = useStore();
@@ -59,5 +48,12 @@ export default defineComponent({
 .header {
   display: flex;
   justify-content: space-between;
+}
+
+@media only screen and (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    justify-content: start;
+  }
 }
 </style>

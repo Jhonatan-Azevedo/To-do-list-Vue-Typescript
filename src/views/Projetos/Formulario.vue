@@ -1,7 +1,6 @@
 <template>
-  <section class="projetos">
-    <h1 class="title">Projetos</h1>
-    <form @submit.prevent="salvarProjeto()">
+  <section>
+    <form @submit.prevent="salvarProjeto()" class="mt-5">
       <div class="field">
         <label for="nomeDoProjeto" class="label"> Nome do Projeto</label>
         <input
@@ -78,10 +77,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.projetos {
-  padding: 1.25rem;
-}
-
 .footer-btn {
   display: flex;
   justify-content: space-between;
