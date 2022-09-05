@@ -12,9 +12,20 @@
       </div>
       <div class="field footer-btn">
         <button class="button is-success" type="submit">Salvar</button>
-        <button class="button is-dark" type="button" @click="$router.go(-1)">
-          Voltar
-        </button>
+        <div>
+          <button
+            class="button is-danger"
+            type="button"
+            @click="apagarProjeto()"
+            v-if="ocultarBtnExcluir"
+          >
+            Excluir
+          </button>
+
+          <button class="button is-dark" type="button" @click="$router.go(-1)">
+            Voltar
+          </button>
+        </div>
       </div>
     </form>
   </section>
@@ -23,6 +34,11 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { useStore } from "@/store";
+import {
+  ADICIONA_PROJETO,
+  ALTERAR_PROJETO,
+  APAGAR_PROJETO,
+} from "@/store/types-mutations";
 
 export default defineComponent({
   name: "Formulario",
@@ -48,11 +64,20 @@ export default defineComponent({
       this.nomeDoProjeto = projeto?.nome || "";
     }
   },
+  computed: {
+    ocultarBtnExcluir() {
+      if (this.$route.params.id) {
+        return true;
+      }
+
+      return false;
+    },
+  },
 
   methods: {
     salvarProjeto() {
       if (this.id) {
-        this.store.commit("ALTERAR_PROJETO", {
+        this.store.commit(ALTERAR_PROJETO, {
           id: this.id,
           nome: this.nomeDoProjeto,
         });
@@ -60,10 +85,15 @@ export default defineComponent({
         this.nomeDoProjeto = "";
         this.$router.push("/projetos");
       } else {
-        this.store.commit("ADICIONA_PROJETO", this.nomeDoProjeto);
+        this.store.commit(ADICIONA_PROJETO, this.nomeDoProjeto);
         this.nomeDoProjeto = "";
         this.$router.push("/projetos");
       }
+    },
+
+    apagarProjeto() {
+      this.store.commit(APAGAR_PROJETO, this.id);
+      this.$router.push("/projetos");
     },
   },
 
@@ -80,5 +110,9 @@ export default defineComponent({
 .footer-btn {
   display: flex;
   justify-content: space-between;
+}
+
+.footer-btn div button {
+  margin: 0 5px;
 }
 </style>

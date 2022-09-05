@@ -1,26 +1,22 @@
 <template>
   <section>
+    <div class="informativo">Clique em cima do projeto para editalo</div>
     <table class="table is-fullwidth">
       <thead>
         <tr>
           <th>ID</th>
           <th>Nome</th>
-          <th>Ações</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="projeto in projetos" :key="projeto.id">
+        <tr
+          v-for="projeto in projetos"
+          :key="projeto.id"
+          @click="editarProjeto(projeto.id)"
+          class="cursor-pointer"
+        >
           <td>{{ projeto.id }}</td>
           <td>{{ projeto.nome }}</td>
-          <td>
-            <router-link
-              :to="`/projetos/${projeto.id}`"
-              class="button is-warning"
-              ><span class="icon is-small"
-                ><i class="fas fa-pencil-alt"></i>
-              </span>
-            </router-link>
-          </td>
         </tr>
       </tbody>
     </table>
@@ -34,6 +30,12 @@ import { useStore } from "@/store";
 export default defineComponent({
   name: "Lista",
 
+  methods: {
+    editarProjeto(id: string) {
+      this.$router.push(`/projetos/${id}`);
+    },
+  },
+
   setup() {
     const store = useStore();
     return {
@@ -44,4 +46,12 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.informativo {
+  font-size: 13px;
+  color: red;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
 </style>
