@@ -7,14 +7,30 @@
       </span>
     </h1>
 
-    <button class="button" @click="alterarTema()">
-      {{ textoBotao }}
-    </button>
+    <div>
+      <button class="button" @click="alterarTema()">
+        {{ textoBotao }}
+        <i
+          v-if="textoBotao != 'Ativar modo escuro'"
+          class="fa-regular fa-lightbulb"
+        ></i>
+        <i v-else class="fa-solid fa-lightbulb"></i>
+      </button>
+
+      <span
+        >Desenvolvido por
+        <a href="#" target="blank"
+          >Jhonatan Azevedo <i class="fa-brands fa-linkedin"></i
+        ></a>
+      </span>
+    </div>
   </header>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import Service from "./../service";
+
 export default defineComponent({
   name: "BarraLateral",
 
@@ -36,9 +52,15 @@ export default defineComponent({
     },
   },
 
+  mounted() {
+    const tema = JSON.parse(localStorage.getItem("@registros") || "{}");
+    this.modoEscuroAtivo = tema.modoEscuro;
+  },
+
   methods: {
     alterarTema() {
       this.modoEscuroAtivo = !this.modoEscuroAtivo;
+      Service.alterarTema(this.modoEscuroAtivo);
       this.$emit("aoTemaAlterado", this.modoEscuroAtivo);
     },
   },
@@ -52,6 +74,9 @@ header {
   height: 100vh;
   text-align: center;
   padding: 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 header h1 {
@@ -62,6 +87,32 @@ header h1 {
   padding: 2%;
   margin: 5px;
   border-radius: 5px;
+}
+
+header div {
+  display: flex;
+  flex-direction: column;
+}
+
+header div span {
+  color: #ddd;
+  font-size: 17px;
+  margin-top: 10px;
+}
+
+header div span a {
+  text-decoration: none;
+  color: #faf0ca;
+  transition: all ease 0.3s;
+}
+
+header div span a:hover {
+  color: #000000;
+  font-weight: bold;
+}
+
+header div button i {
+  margin: 0 5px;
 }
 
 @media only screen and (max-width: 768px) {

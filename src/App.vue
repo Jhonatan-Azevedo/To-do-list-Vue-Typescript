@@ -53,7 +53,9 @@ export default defineComponent({
   },
 
   mounted() {
+    this.trocarTema();
     const registros = JSON.parse(localStorage.getItem("@registros") || "{}");
+    console.log(registros);
     if (registros == {}) {
       const novoRegistros = {
         user: "",
@@ -75,8 +77,9 @@ export default defineComponent({
       if (novaTarefa && registos.tarefas) this.tarefas = registos.tarefas;
     },
 
-    trocarTema(modoEscuroAtivo: boolean) {
-      this.modoEscuroAtivo = modoEscuroAtivo;
+    trocarTema() {
+      const tema = JSON.parse(localStorage.getItem("@registros") || "{}");
+      this.modoEscuroAtivo = tema.modoEscuro;
     },
   },
 });
