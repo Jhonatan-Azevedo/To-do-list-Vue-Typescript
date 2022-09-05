@@ -32,6 +32,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 <br />
 <br />
 
-Link: <a href="https://lista-de-tarefas-rho.vercel.app" targer="blank">Lista-de-tarefas</a> 
-�
-�
+Link do projeto: <a href="https://lista-de-tarefas-bay-seven.vercel.app" targer="blank">Lista-de-tarefas</a>
