@@ -66,6 +66,7 @@ table thead tr th {
 }
 
 table tbody tr td {
+  color: var(--texto-primario);
   border-bottom: 1px solid var(--bg-primario);
 }
 </style>
