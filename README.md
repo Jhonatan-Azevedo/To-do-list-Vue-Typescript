@@ -30,10 +30,10 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 - <br />
 - Bulma;
 - <br />
-- Font Awesome;#� �T�o�-�d�o�-�l�i�s�t�-�V�u�e�-�T�y�p�e�s�c�r�i�p�t�
+- Font Awesome;
 <br />
 <br />
 
-Link: https://lista-de-tarefas-rho.vercel.app
+Link: <a href="https://lista-de-tarefas-rho.vercel.app" targer="blank">Lista-de-tarefas</a> 
 �
 �
