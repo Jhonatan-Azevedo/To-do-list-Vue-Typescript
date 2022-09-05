@@ -107,6 +107,16 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.field label {
+  color: var(--texto-primario);
+}
+
+.field input {
+  background-color: var(--bg-form);
+  color: var(--texto-primario);
+  border-color: var(--bg-form);
+}
+
 .footer-btn {
   display: flex;
   justify-content: space-between;

@@ -50,6 +50,10 @@ export default defineComponent({
   justify-content: space-between;
 }
 
+.header h1 {
+  color: var(--texto-primario);
+}
+
 @media only screen and (max-width: 768px) {
   .header {
     flex-direction: column;

@@ -54,4 +54,18 @@ export default defineComponent({
 .cursor-pointer {
   cursor: pointer;
 }
+
+table {
+  background-color: var(--bg-form);
+  color: var(--texto-primario);
+}
+
+table thead tr th {
+  color: var(--texto-primario);
+  border-bottom: 1px solid var(--bg-primario);
+}
+
+table tbody tr td {
+  border-bottom: 1px solid var(--bg-primario);
+}
 </style>
