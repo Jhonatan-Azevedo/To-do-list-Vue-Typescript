@@ -31,7 +31,7 @@ class Service {
     }
 
     sair() {
-        this.excluirTarefas
+        this.excluirTarefas()
         const registros = JSON.parse(localStorage.getItem("@registros") || "{}");
         if (registros.user) {
             registros.user = "";
