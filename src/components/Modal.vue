@@ -8,7 +8,7 @@
 
       <div>
         <label>Digite seu nome:</label>
-        <input class="input" type="text" v-model="nomeUsuario" />
+        <input class="input" type="text" v-model="nomeUsuario" maxlength="25" />
       </div>
 
       <div>
@@ -22,7 +22,7 @@
 
 <script>
 import Service from "@/service";
-import { defineComponent } from "@vue/runtime-core";
+import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "Modal",
@@ -78,7 +78,8 @@ export default defineComponent({
 
 .modal-user form {
   background-color: #fff;
-  width: 500px;
+  max-width: 500px;
+  width: 95% !important;
   height: 200px;
   z-index: 100;
   border-radius: 5px;
@@ -90,8 +91,6 @@ export default defineComponent({
 
 .modal-user form div {
   background-color: #fff;
-  width: 500px;
-  height: 300px;
   z-index: 100;
   border-radius: 5px;
   display: flex;

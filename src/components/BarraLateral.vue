@@ -1,11 +1,26 @@
 <template>
   <header>
-    <h1>
-      <span> To-do-List </span>
-      <span class="icon">
-        <i class="fa fa-list-check"></i>
-      </span>
-    </h1>
+    <div>
+      <h1>
+        <span> To-do-List </span>
+        <span class="icon">
+          <i class="fa fa-list-check"></i>
+        </span>
+      </h1>
+
+      <nav class="mt-5">
+        <ul>
+          <li>
+            <router-link class="link" to="/">
+              Tarefas <i class="fas fa-tasks"></i>
+            </router-link>
+            <router-link class="link" to="/projetos">
+              Projetos <i class="fas fa-project-diagram"></i>
+            </router-link>
+          </li>
+        </ul>
+      </nav>
+    </div>
 
     <div>
       <button class="button" @click="alterarTema()">
@@ -113,6 +128,32 @@ header div span a:hover {
 
 header div button i {
   margin: 0 5px;
+}
+
+nav li {
+  text-align: left;
+  margin: 10px 0;
+  display: flex;
+  flex-direction: column !important;
+}
+
+nav li a {
+  padding: 10px;
+}
+
+.link {
+  color: #fff;
+  transition: all ease 0.3s;
+}
+
+.link:hover {
+  color: #faf0ca;
+}
+
+.link.router-link-active {
+  color: #faf0ca;
+  border-left: 1px solid #faf0ca;
+  background-color: rgba(0, 0, 0, 0.3);
 }
 
 @media only screen and (max-width: 768px) {

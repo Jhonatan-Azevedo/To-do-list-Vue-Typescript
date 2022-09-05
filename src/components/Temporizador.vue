@@ -1,6 +1,6 @@
 <template>
   <section
-    class="is-flex is-align-items-center is-justify-content-space-between"
+    class="is-flex is-align-items-center is-justify-content-space-around"
   >
     <Cronometro :tempoEmSegundos="tempoEmSegundos" />
 
@@ -90,4 +90,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
+button {
+  width: 25%;
+}
 </style>

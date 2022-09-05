@@ -10,8 +10,8 @@
 </template>
 
 <script lang="ts">
+import { defineComponent, PropType } from "vue";
 import ITarefa from "@/interfaces/ITarefa";
-import { defineComponent, PropType } from "@vue/runtime-core";
 import Box from "./Box.vue";
 import Cronometro from "./Cronometro.vue";
 
