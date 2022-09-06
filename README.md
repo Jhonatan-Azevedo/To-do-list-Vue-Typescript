@@ -29,6 +29,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 - Typescript;
 - Bulma;
 - Font Awesome;
+- Vuex
 <br />
 <br />
 

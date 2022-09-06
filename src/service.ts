@@ -1,3 +1,5 @@
+import ITarefa from "./interfaces/ITarefa";
+
 class Service {
     alterarTema(modoEscuroAtivo: boolean) {
         const registros = JSON.parse(localStorage.getItem("@registros") || "{}")
@@ -7,6 +9,7 @@ class Service {
     }
 
     salvarTerefa(tarefa: object) {
+        console.log(tarefa);
         const registros = JSON.parse(localStorage.getItem("@registros") || "{}");
         if (registros.tarefas) {
             registros.tarefas.push(tarefa);
@@ -15,7 +18,7 @@ class Service {
     }
 
     salvarNome(nome: string) {
-         const registros = JSON.parse(localStorage.getItem("@registros") || "{}");
+        const registros = JSON.parse(localStorage.getItem("@registros") || "{}");
         if (registros.user == "") {
             registros.user = nome;
             localStorage.setItem("@registros", JSON.stringify(registros));
@@ -27,7 +30,7 @@ class Service {
         if (registros.tarefas) {
             registros.tarefas = [];
             localStorage.setItem("@registros", JSON.stringify(registros));
-        } 
+        }
     }
 
     sair() {
@@ -36,7 +39,7 @@ class Service {
         if (registros.user) {
             registros.user = "";
             localStorage.setItem("@registros", JSON.stringify(registros));
-        } 
+        }
     }
 }
 

@@ -1,8 +1,11 @@
 <template>
   <Box>
-    <div class="columns tarefa">
-      <div class="column is-7">{{ tarefa.descricao }}</div>
-      <div class="column">
+    <div class="tarefa">
+      <div>{{ tarefa.descricao }}</div>
+      <div>
+        {{ tarefa.projeto?.nome || "Projeto não selecionado" }}
+      </div>
+      <div>
         <Cronometro :tempoEmSegundos="tarefa.duracaoEmSegundos" />
       </div>
     </div>
@@ -31,6 +34,8 @@ export default defineComponent({
 <style>
 .tarefa {
   color: var(--texto-primario);
+  display: flex;
+  justify-content: space-between;
 }
 </style>
 

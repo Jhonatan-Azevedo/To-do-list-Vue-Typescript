@@ -39,6 +39,8 @@ import {
   ALTERAR_PROJETO,
   APAGAR_PROJETO,
 } from "@/store/types-mutations";
+import { TipoDeNotificacao } from "@/interfaces/INotificacao";
+import useNotificador from "@/hooks/notificador";
 
 export default defineComponent({
   name: "Formulario",
@@ -87,6 +89,12 @@ export default defineComponent({
       } else {
         this.store.commit(ADICIONA_PROJETO, this.nomeDoProjeto);
         this.nomeDoProjeto = "";
+
+        this.notificar(
+          TipoDeNotificacao.ATENCAO,
+          "Novo projeto salvo",
+          "Sucesso! Seu projeto já esta disponível."
+        );
         this.$router.push("/projetos");
       }
     },
@@ -99,8 +107,10 @@ export default defineComponent({
 
   setup() {
     const store = useStore();
+    const { notificar } = useNotificador();
     return {
       store,
+      notificar,
     };
   },
 });

@@ -17,12 +17,12 @@
 
       <div class="div-form">
         <div class="select">
-          <select v-model="idProjeto">
+          <select v-model="idProjeto" id="projeto">
             <option value="">Selecione o projeto</option>
             <option
               v-for="projeto in projetos"
               :key="projeto.id"
-              value="projeto.id"
+              :value="projeto.id"
             >
               {{ projeto.nome }}
             </option>
@@ -45,6 +45,8 @@ import { computed, defineComponent } from "vue";
 import Temporizador from "./Temporizador.vue";
 import { useStore } from "vuex";
 import { key } from "@/store";
+import IProjeto from "@/interfaces/IProjeto";
+import ITarefa from "@/interfaces/ITarefa";
 
 export default defineComponent({
   name: "Formulario",
@@ -77,18 +79,18 @@ export default defineComponent({
 
   methods: {
     finalizarTarefa(tempoDecorrido: number): void {
-      const tarefa = {
+      Service.salvarTerefa({
         duracaoEmSegundos: tempoDecorrido,
         descricao: this.descricao,
-      };
+        projeto: this.projetos.find((proj) => proj.id === this.idProjeto),
+      });
 
-      Service.salvarTerefa(tarefa);
       this.$emit("novaTarefa", true);
 
       this.descricao = "";
+      this.idProjeto = "";
     },
   },
-
   setup() {
     const store = useStore(key);
     return {
